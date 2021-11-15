@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
   res.json({ success: "home" });
 });
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/notes", require("./routes/notes"));
+app.use("/api/passwords", require("./routes/password"));
 
 app.listen(port, () => {
   console.log(` app listening at http://localhost:${port}`);
