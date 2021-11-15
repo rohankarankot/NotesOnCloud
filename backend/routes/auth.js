@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../modals/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-
+const fetchuser = require("../MiddleWares/fetchuser");
 const JWT_SECRET = "qwe&^$*sdfghsdfgh";
 const jwt = require("jsonwebtoken");
 //Create a new User Using: POST "api/auth/createuser"  NOT require Auth
@@ -87,4 +87,17 @@ router.post(
     }
   }
 );
+
+//get logged in User Details Using: POST "api/auth/getuser"  Require Auth
+router.post("/getuser", fetchuser, async (req, res) => {
+  try {
+    userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send({ error: "internal server error" });
+  }
+});
+
 module.exports = router;
