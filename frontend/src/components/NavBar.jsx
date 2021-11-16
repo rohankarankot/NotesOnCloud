@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
+  let location = useLocation();
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
@@ -22,10 +24,22 @@ const NavBar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <Link className="nav-link active" to="/" aria-current="page">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+                to="/"
+                aria-current="page"
+              >
                 Home
               </Link>
-              <Link className="nav-link active" to="/about" aria-current="page">
+              <Link
+                className={`nav-link ${
+                  location.pathname === "/about" ? "active" : ""
+                }`}
+                to="/about"
+                aria-current="page"
+              >
                 About
               </Link>
             </div>
