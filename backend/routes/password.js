@@ -44,4 +44,38 @@ router.post(
     }
   }
 );
+
+//Rout 3: update password of a user using PUT: "api/password/update"  LOGIN Required
+
+router.put("/update/:id", fetchuser, async (req, res) => {
+  const { title, password } = req.body;
+  // res.send({ title, password });
+  try {
+    // Create a newNote object
+    const newNote = {};
+    if (title) {
+      newNote.title = title;
+    }
+    if (password) {
+      newNote.password = password;
+    }
+    // Find the note to be updated and update it
+    let note = await passwords.findById(req.params.id);
+    if (!note) {
+      return res.status(404).send("Not Found");
+    }
+    if (note.user.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
+    note = await passwords.findByIdAndUpdate(
+      req.params.id,
+      { $set: newNote },
+      { new: true }
+    );
+    res.json({ note });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 module.exports = router;
