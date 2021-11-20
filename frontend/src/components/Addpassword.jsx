@@ -6,11 +6,17 @@ const Addpassword = () => {
   const [Newpass, setNewpass] = useState({ title: "", password: "" });
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!Newpass.title || !Newpass.password) {
+      alert("all field is required");
+      return;
+    }
     addPass(Newpass.title, Newpass.password);
+    setNewpass({ title: "", password: "" });
   };
   const onChange = (e) => {
     setNewpass({ ...Newpass, [e.target.name]: e.target.value });
   };
+
   return (
     <div>
       <form action="" className="text-center">
@@ -26,7 +32,9 @@ const Addpassword = () => {
               type="text"
               id="title"
               name="title"
+              value={Newpass.title}
               onChange={onChange}
+              autoComplete="false"
               className="form-control w-100"
               placeholder="Enter site name"
             />
@@ -40,6 +48,7 @@ const Addpassword = () => {
           <div className="col-md-8">
             <input
               type="password"
+              value={Newpass.password}
               name="password"
               onChange={onChange}
               id="password"

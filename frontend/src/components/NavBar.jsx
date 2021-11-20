@@ -42,6 +42,14 @@ const NavBar = () => {
               >
                 About
               </Link>
+              <form class="form-inline">
+                <input
+                  class="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              </form>
             </div>
           </div>
         </div>

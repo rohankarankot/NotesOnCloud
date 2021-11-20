@@ -2,12 +2,15 @@ import React from "react";
 
 const Alert = () => {
   return (
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <div
+      className="alert alert-warning alert-dismissible fade show"
+      role="alert"
+    >
       <strong>Holy guacamole!</strong> You should check in on some of those
       fields below.
       <button
         type="button"
-        class="close"
+        className="close"
         data-dismiss="alert"
         aria-label="Close"
       >
