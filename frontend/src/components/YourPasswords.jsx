@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import notePasswordContext from "../context/notePasswords/notePasswordContext";
 import PasswordTable from "./PasswordTable";
 
 const YourPasswords = () => {
+  let history = useHistory();
   const context = useContext(notePasswordContext);
   const { passwordNotes, getAllPasswords, editPass } = context;
   const ref = useRef(null);
@@ -18,7 +20,13 @@ const YourPasswords = () => {
   };
 
   useEffect(() => {
-    getAllPasswords();
+    if (localStorage.getItem("token")) {
+      getAllPasswords();
+    } else {
+      history.push("/login");
+    }
+
+    // eslint-disable-next-line
   }, []);
   const handleSubmit = (e) => {
     ref.current.click();
@@ -101,7 +109,7 @@ const YourPasswords = () => {
                     <div className="col-md-8">
                       <input
                         value={Newpass.epassword}
-                        type="epassword"
+                        type="password"
                         name="epassword"
                         onChange={onChange}
                         id="epassword"

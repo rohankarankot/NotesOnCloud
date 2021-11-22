@@ -1,18 +1,17 @@
 import { useState } from "react";
 import NotePasswordContext from "./notePasswordContext";
+import { HOST } from "../../components/Config";
 const NotePasswordState = (props) => {
-  const HOST = "http://localhost:5000";
   const passwordNotesInitial = [];
   const [passwordNotes, updateNotePassword] = useState(passwordNotesInitial);
 
   // get all password
   const getAllPasswords = async (title, password) => {
-    const response = await fetch(`${HOST}/api/passwords/fetchallpasswords`, {
+    const response = await fetch(`${HOST}api/passwords/fetchallpasswords`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5Mjg1ZDMzNjVjY2FlYThiOWE0MmVmIn0sImlhdCI6MTYzNzA0MTM5NX0.zX50f4cIy-HJc1FqMNA2UyH1KgzMmw5rK_0q54ohRPI",
+        "auth-token": localStorage.getItem("token"),
       },
     });
     const json = await response.json();
@@ -25,8 +24,7 @@ const NotePasswordState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5Mjg1ZDMzNjVjY2FlYThiOWE0MmVmIn0sImlhdCI6MTYzNzA0MTM5NX0.zX50f4cIy-HJc1FqMNA2UyH1KgzMmw5rK_0q54ohRPI",
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ title, password }),
     });
@@ -41,8 +39,7 @@ const NotePasswordState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5Mjg1ZDMzNjVjY2FlYThiOWE0MmVmIn0sImlhdCI6MTYzNzA0MTM5NX0.zX50f4cIy-HJc1FqMNA2UyH1KgzMmw5rK_0q54ohRPI",
+        "auth-token": localStorage.getItem("token"),
       },
     });
     const json = await response.json();
@@ -50,9 +47,8 @@ const NotePasswordState = (props) => {
     const newPass = passwordNotes.filter((data) => {
       return data._id !== id;
     });
+    alert("password Deleted Successfully");
     updateNotePassword(newPass);
-
-    console.log("deleed");
   };
   // edit note
   const editPass = async (id, title, password) => {
@@ -64,13 +60,12 @@ const NotePasswordState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjE5Mjg1ZDMzNjVjY2FlYThiOWE0MmVmIn0sImlhdCI6MTYzNzA0MTM5NX0.zX50f4cIy-HJc1FqMNA2UyH1KgzMmw5rK_0q54ohRPI",
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ id, title, password }),
     });
     const json = await response.json();
-
+    console.log(json);
     let newNotes = JSON.parse(JSON.stringify(passwordNotes));
     // Logic to edit in client
 

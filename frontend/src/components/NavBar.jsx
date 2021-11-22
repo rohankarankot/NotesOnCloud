@@ -1,14 +1,20 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 const NavBar = () => {
   let location = useLocation();
-
+  const history = useHistory();
+  const handleLogout = () => {
+    {
+      history.go("/landing");
+      localStorage.removeItem("token");
+    }
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-danger">
         <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/landing">
             MPM
           </Link>
           <button
@@ -42,14 +48,15 @@ const NavBar = () => {
               >
                 About
               </Link>
-              <form class="form-inline">
-                <input
-                  class="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </form>
+              {localStorage.getItem("token") ? (
+                <>
+                  <a className={`nav-link pointer`} onClick={handleLogout}>
+                    LogOut
+                  </a>
+                </>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

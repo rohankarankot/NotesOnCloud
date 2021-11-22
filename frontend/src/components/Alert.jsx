@@ -1,6 +1,7 @@
 import React from "react";
 
-const Alert = () => {
+const Alert = (props) => {
+  console.log(props);
   return (
     <div
       className="alert alert-warning alert-dismissible fade show"
@@ -8,14 +9,6 @@ const Alert = () => {
     >
       <strong>Holy guacamole!</strong> You should check in on some of those
       fields below.
-      <button
-        type="button"
-        className="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
   );
 };

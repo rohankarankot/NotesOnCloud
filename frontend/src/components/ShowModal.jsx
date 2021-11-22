@@ -18,10 +18,11 @@ const ShowModal = (props) => {
           className={`modal-dialog ${opened ? "" : "d-none"}`}
           role="document"
         >
-          <div className="modal-content ">
+          <div className="modal-content " style={{ zIndex: 1000 }}>
             <div className="modal-header bg-danger text-white">
               <h5 className="modal-title" align="center">
-                <i className="fas fa-exclamation-triangle"></i> Attention!!!
+                <i className="fas fa-exclamation-triangle">&nbsp;&nbsp;</i>
+                Attention&nbsp;&nbsp;!!!
               </h5>
             </div>
             <div className="modal-body">
